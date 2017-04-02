@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<a href="/" class="btn btn-default">Back to List</a>
+
+<h1>{{review.title}} <small>{{"★ " * review.rating}}</small></h1>
+
+<p>{{review.text}}</p>
+
+{% endblock %}

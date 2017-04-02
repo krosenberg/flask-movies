@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<h3>
+	{% if new %}
+		New review
+	{% else %}
+		Editing {{title}}
+	{% endif %}
+</h3>
+<form method="POST">
+
+  <div class="form-group">
+    <label>Movie Title</label>
+    <input type="text" class="form-control" name="title" value="{{title}}">
+  </div>
+
+  <div class="form-group">
+    <label>Rating</label>
+    <br/>
+	{% for x in range(5) %}
+		<label>
+			<input
+				type="radio"
+				name="rating"
+				value="{{x+1}}"
+				{% if rating and rating == x+1 %}checked{% endif %}
+			/> {{ "★" * (x+1) }}
+		</label><br/>
+	{% endfor %}
+  </div>
+
+  <div class="form-group">
+    <label>Review</label>
+    <textarea name="text" class="form-control">{{text}}</textarea>
+  </div>
+
+  <button class="btn btn-success" type="submit">Save</button>
+
+</form>
+{% endblock %}

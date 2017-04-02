@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<a href="/new" class="btn btn-primary pull-right">+ Add Review</a>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Rating</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for r in reviews %}
+		<tr>
+			<td>
+				<a href="/{{r.id}}">{{r.title}}</a>
+			</td>
+			<td>{{"★ " * r.rating}}</td>
+			<td>
+				<a href="/edit/{{r.id}}" class="btn btn-default">Edit</a>
+				<button class="btn btn-default delete-btn" data-id="{{r.id}}">Delete</button>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+<script type="text/javascript">
+$('.delete-btn').on('click', function() {
+	var self = this;
+	var id = $(this).data('id');
+	$.ajax({
+		type: 'DELETE',
+		url: '/delete/' + id,
+		success: function() {
+			$(self).parent().parent().remove();
+		}
+	});
+});
+</script>
+
+{% endblock %}
